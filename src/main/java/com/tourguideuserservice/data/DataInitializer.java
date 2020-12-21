@@ -15,8 +15,6 @@ import com.tourguideuserservice.bean.LocationBean;
 import com.tourguideuserservice.bean.VisitedLocationBean;
 import com.tourguideuserservice.model.User;
 
-
-
 @Component
 public class DataInitializer {
 	
@@ -29,7 +27,6 @@ public class DataInitializer {
 			String email = userName + "@tourGuide.com";
 			User user = new User(UUID.randomUUID(), userName, phone, email);
 			generateUserLocationHistory(user);
-
 			DataContainer.usersData.put(user.getUserId(), user);
 		});
 		logger.debug("Created " + testUserNumber + " test users.");
@@ -38,7 +35,7 @@ public class DataInitializer {
 	private void generateUserLocationHistory(User user) {
 		IntStream.range(0, 3).forEach(i -> {
 			user.getVisitedLocationsList().add(new VisitedLocationBean(user.getUserId(),
-					new LocationBean(generateRandomLatitude(), generateRandomLongitude()), getRandomTime()));
+					new LocationBean(generateRandomLatitude(), generateRandomLongitude()), getRandomTime()));	
 		});
 	}
 
@@ -58,6 +55,5 @@ public class DataInitializer {
 		LocalDateTime localDateTime = LocalDateTime.now().minusDays(new Random().nextInt(30));
 		return Date.from(localDateTime.toInstant(ZoneOffset.UTC));
 	}
-
-
+	
 }

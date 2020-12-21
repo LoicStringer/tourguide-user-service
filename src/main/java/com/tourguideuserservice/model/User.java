@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.UUID;
 
 import com.tourguideuserservice.bean.ProviderBean;
-import com.tourguideuserservice.bean.RewardBean;
+
 import com.tourguideuserservice.bean.VisitedLocationBean;
 
 
@@ -18,7 +18,7 @@ public class User {
 	private String emailAddress;
 	private Date latestLocationTimestamp;
 	private List<VisitedLocationBean> visitedLocationsList = new ArrayList<>();
-	private List<RewardBean> rewardBeansList = new ArrayList<>();
+	private List<UserReward> userRewardsList = new ArrayList<>();
 	private UserTripPreferences preferences = new UserTripPreferences();
 	private List<ProviderBean> tripDealsList = new ArrayList<>();
 	
@@ -81,12 +81,12 @@ public class User {
 		this.visitedLocationsList = visitedLocationsList;
 	}
 
-	public List<RewardBean> getRewardBeansList() {
-		return rewardBeansList;
+	public List<UserReward> getUserRewardsList() {
+		return userRewardsList;
 	}
 
-	public void setRewardBeansList(List<RewardBean> rewardBeansList) {
-		this.rewardBeansList = rewardBeansList;
+	public void setUserRewardsList(List<UserReward> userRewardsList) {
+		this.userRewardsList = userRewardsList;
 	}
 
 	public UserTripPreferences getPreferences() {

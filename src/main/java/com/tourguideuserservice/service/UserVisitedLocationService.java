@@ -1,7 +1,6 @@
 package com.tourguideuserservice.service;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -19,14 +18,6 @@ public class UserVisitedLocationService {
 		user.getVisitedLocationsList().add(visitedLocation);
 		return visitedLocation;
 	}
-
-	public List<VisitedLocationBean> getUserVisitedLocationHistory(User user) {
-		return user.getVisitedLocationsList();
-	}
-
-	public void clearUserVisitedLocation(User user) {
-		user.getVisitedLocationsList().clear();
-	}
 	
 	public VisitedLocationBean getUserLastVisitedLocation(User user) {
 		VisitedLocationBean visitedLocation = new VisitedLocationBean();
@@ -36,7 +27,7 @@ public class UserVisitedLocationService {
 		return visitedLocation;
 	}
 
-	public Map<UUID,LocationBean> getgetEachUserLatestLocationList() {
+	public Map<UUID,LocationBean> getEachUserLatestLocationList() {
 		Map <UUID,LocationBean> allUsersLatestLocationMap = new HashMap<UUID,LocationBean>();
 		DataContainer.usersData.entrySet().forEach(entry ->{
 			LocationBean userLatestLocation = getUserLastVisitedLocation(entry.getValue()).getLocation();

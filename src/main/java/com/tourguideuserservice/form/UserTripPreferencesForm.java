@@ -1,6 +1,6 @@
-package com.tourguideuserservice.bean;
+package com.tourguideuserservice.form;
 
-public class UserTripPreferencesFormBean {
+public class UserTripPreferencesForm {
 	
 	private int attractionProximity ;
 	private String currency ;
@@ -11,7 +11,7 @@ public class UserTripPreferencesFormBean {
 	private int numberOfAdults ;
 	private int numberOfChildren ;
 	
-	public UserTripPreferencesFormBean() {
+	public UserTripPreferencesForm() {
 	}
 	
 	public int getAttractionProximity() {

@@ -16,8 +16,8 @@ public class UserService {
 		return DataContainer.usersData.get(userId);
 	}
 	
-	public List<User> getAllUsersList() {
-		return DataContainer.usersData.values().stream().collect(Collectors.toList());
+	public List<UUID> getAllUsersIdList() {
+		return DataContainer.usersData.keySet().stream().collect(Collectors.toList());
 	}
 	
 	public User addUser(User user) {
