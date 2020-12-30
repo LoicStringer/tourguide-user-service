@@ -34,7 +34,7 @@ public class UserRewardsService {
 	private int rewardAwardingDistance;
 
 	public int getUserRewardsPointsSum(UUID userId) {
-		return userService.getUser(userId).getUserRewardsList().stream().mapToInt(i -> i.getRewardCentralPoints())
+		return userService.getUser(userId).getUserRewardsList().parallelStream().mapToInt(i -> i.getRewardCentralPoints())
 				.sum();
 	}
 
@@ -47,15 +47,14 @@ public class UserRewardsService {
 		User userToReward = userService.getUser(userId);
 		List<AttractionBean> visitedAttractionsList = getVisitedAttractionsList(userToReward);
 		VisitedLocationBean userLocation = userVisitedLocationService.getUserLastVisitedLocation(userToReward);
-		locationProxy.getDistancesToAttractions(userLocation.getLocation()).entrySet().stream()
+		locationProxy.getDistancesToAttractions(userLocation.getLocation()).entrySet().parallelStream()
+			.filter(e-> checkRewardAwardingDistance(e.getKey()) && !visitedAttractionsList.contains(e.getValue()))
 			.forEach(e->{
-				if(checkRewardAwardingDistance(e.getKey()) && !visitedAttractionsList.contains(e.getValue())) {
 					int attractionRewardPoints = rewardsProxy.getAttractionRewardPoints(userId, e.getValue().getAttractionId());
 					userRewardToAdd.setVisitedLocationBean(userLocation);
 					userRewardToAdd.setAttractionbean(e.getValue());
 					userRewardToAdd.setRewardCentralPoints(attractionRewardPoints);
 					addUserReward(userToReward,userRewardToAdd);
-				}
 			});
 		return userRewardToAdd;
 	}
@@ -66,7 +65,7 @@ public class UserRewardsService {
 	}
 	
 	private List<AttractionBean> getVisitedAttractionsList(User user) {
-		List<AttractionBean> VisitedAttractions = user.getUserRewardsList().stream()
+		List<AttractionBean> VisitedAttractions = user.getUserRewardsList().parallelStream()
 				.map(ur -> ur.getAttractionbean())
 				.collect(Collectors.toList());
 		return VisitedAttractions;

@@ -22,7 +22,7 @@ public class DataContainer {
 	static {
 		usersData = new HashMap<UUID, User>();
 		dataInitializer = new DataInitializer();
-		dataInitializer.initializeTestsUsers(100);
+		dataInitializer.initializeTestsUsers(1000);
 		System.out.println(usersData.entrySet().stream().findFirst().get().getKey());
 	}
 

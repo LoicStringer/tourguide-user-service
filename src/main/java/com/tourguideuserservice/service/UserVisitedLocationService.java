@@ -29,7 +29,7 @@ public class UserVisitedLocationService {
 
 	public Map<UUID,LocationBean> getEachUserLatestLocationList() {
 		Map <UUID,LocationBean> allUsersLatestLocationMap = new HashMap<UUID,LocationBean>();
-		DataContainer.usersData.entrySet().forEach(entry ->{
+		DataContainer.usersData.entrySet().parallelStream().forEach(entry ->{
 			LocationBean userLatestLocation = getUserLastVisitedLocation(entry.getValue()).getLocation();
 			allUsersLatestLocationMap.put(entry.getKey(),userLatestLocation );
 		});
