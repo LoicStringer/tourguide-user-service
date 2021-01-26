@@ -6,17 +6,17 @@ import com.tourguideuserservice.bean.VisitedLocationBean;
 public class UserReward {
 	
 	private VisitedLocationBean visitedLocationBean;
-	private AttractionBean attractionbean;
+	private AttractionBean attractionBean;
 	private int rewardCentralPoints;
 	
 	public UserReward() {
 	}
 
-	public UserReward(VisitedLocationBean visitedLocationBean, AttractionBean attractionbean,
+	public UserReward(VisitedLocationBean visitedLocationBean, AttractionBean attractionBean,
 			int rewardCentralPoints) {
 		super();
 		this.visitedLocationBean = visitedLocationBean;
-		this.attractionbean = attractionbean;
+		this.attractionBean = attractionBean;
 		this.rewardCentralPoints = rewardCentralPoints;
 	}
 
@@ -28,12 +28,12 @@ public class UserReward {
 		this.visitedLocationBean = visitedLocationBean;
 	}
 
-	public AttractionBean getAttractionbean() {
-		return attractionbean;
+	public AttractionBean getAttractionBean() {
+		return attractionBean;
 	}
 
-	public void setAttractionbean(AttractionBean attractionbean) {
-		this.attractionbean = attractionbean;
+	public void setAttractionBean(AttractionBean attractionBean) {
+		this.attractionBean = attractionBean;
 	}
 
 	public int getRewardCentralPoints() {
@@ -42,6 +42,12 @@ public class UserReward {
 
 	public void setRewardCentralPoints(int rewardCentralPoints) {
 		this.rewardCentralPoints = rewardCentralPoints;
+	}
+
+	@Override
+	public String toString() {
+		return "UserReward [visitedLocationBean=" + visitedLocationBean + ", attractionBean=" + attractionBean
+				+ ", rewardCentralPoints=" + rewardCentralPoints + "]";
 	}
 	
 

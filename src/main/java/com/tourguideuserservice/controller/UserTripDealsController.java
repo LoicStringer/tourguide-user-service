@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tourguideuserservice.bean.ProviderBean;
+import com.tourguideuserservice.exception.TripDealsProxyException;
 import com.tourguideuserservice.form.UserTripPreferencesForm;
 import com.tourguideuserservice.service.UserTripDealsService;
 
@@ -23,11 +24,12 @@ public class UserTripDealsController {
 
 	@PostMapping("/users/{userId}/trip-preferences")
 	public ResponseEntity<UserTripPreferencesForm> addUserTripPreferences (@PathVariable UUID userId, @RequestBody UserTripPreferencesForm userTripPreferencesForm){
-		return ResponseEntity.ok(userTripDealsService.addUserTripPreferences(userId, userTripPreferencesForm));
+		userTripDealsService.addUserTripPreferences(userId, userTripPreferencesForm);
+		return ResponseEntity.ok(userTripPreferencesForm);
 	}
 	
 	@GetMapping("/users/{userId}/trip-deals")
-	public ResponseEntity<List<ProviderBean>> getUserTripDeals (@PathVariable UUID userId){
+	public ResponseEntity<List<ProviderBean>> getUserTripDeals (@PathVariable UUID userId) throws TripDealsProxyException{
 		return ResponseEntity.ok(userTripDealsService.getTripDeals(userId));
 	}
 	

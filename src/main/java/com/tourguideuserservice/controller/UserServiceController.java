@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.tourguideuserservice.exception.DuplicateUserException;
 import com.tourguideuserservice.model.User;
 import com.tourguideuserservice.service.UserService;
 
@@ -31,7 +32,8 @@ public class UserServiceController {
 	}
 		
 	@PostMapping("/users")
-	public ResponseEntity<User> addUser (@RequestBody User user){
+	public ResponseEntity<User> addUser (@RequestBody User user) throws DuplicateUserException{
 		return ResponseEntity.ok(userService.addUser(user));
 	}
+	
 }

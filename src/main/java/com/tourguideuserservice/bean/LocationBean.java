@@ -2,15 +2,22 @@ package com.tourguideuserservice.bean;
 
 public class LocationBean {
 
-	private double longitude;
 	private double latitude;
+	private double longitude;
 	
 	public LocationBean() {
 	}
 
-	public LocationBean(double longitude, double latitude) {
-		super();
+	public LocationBean(double latitude, double longitude) {
+		this.latitude = latitude;
 		this.longitude = longitude;
+	}
+
+	public double getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(double latitude) {
 		this.latitude = latitude;
 	}
 
@@ -22,13 +29,13 @@ public class LocationBean {
 		this.longitude = longitude;
 	}
 
-	public double getLatitude() {
-		return latitude;
+	@Override
+	public String toString() {
+		return "LocationBean [latitude=" + latitude + ", longitude=" + longitude + "]";
 	}
 
-	public void setLatitude(double latitude) {
-		this.latitude = latitude;
-	}
+	
+	
 	
 	
 	

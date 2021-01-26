@@ -12,7 +12,7 @@ import com.tourguideuserservice.model.UserTripPreferences;
 @Component
 public class UserTripPreferencesMapper {
 
-	public UserTripPreferences mapUserTripPreferencesFormBeanToModel(UserTripPreferencesForm userTripPreferencesForm) {
+	public UserTripPreferences mapUserTripPreferencesFormToModel(UserTripPreferencesForm userTripPreferencesForm) {
 		UserTripPreferences userTripPreferences = new UserTripPreferences();
 		CurrencyUnit userTripPreferencesCurrency = Monetary.getCurrency(userTripPreferencesForm.getCurrency());
 		userTripPreferences.setAttractionProximity(userTripPreferencesForm.getAttractionProximity());

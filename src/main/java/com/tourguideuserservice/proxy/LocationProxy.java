@@ -20,9 +20,6 @@ public interface LocationProxy {
 	@GetMapping("{userId}/location")
 	VisitedLocationBean getUserLocation(@PathVariable("userId") UUID userId);
 	
-	@GetMapping("/attractions")
-	List<AttractionBean> getAttractions();
-	
 	@PostMapping("/attractions/distances")
 	TreeMap<Double,AttractionBean> getDistancesToAttractions(@RequestBody LocationBean location);
 	
