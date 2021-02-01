@@ -64,6 +64,13 @@ class UserServiceTest {
 	@Test
 	void isExpectedExceptionThrownWhenAddingAlreadyRegisteredUserTest() {
 		assertThrows(DuplicateUserException.class,()->userService.addUser(user));
+	}
+	
+	@Test
+	void isExpectedExceptionThrownWhenUserNotFoundTest(){
+		User notFoundUser = new User();
+		notFoundUser.setUserId(UUID.randomUUID());
+		assertThrows(UserNotFoundException.class,()->userService.getUser(notFoundUser.getUserId()));
 		
 	}
 }

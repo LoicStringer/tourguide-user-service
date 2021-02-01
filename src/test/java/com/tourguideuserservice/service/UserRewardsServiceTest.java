@@ -101,4 +101,5 @@ class UserRewardsServiceTest {
 		assertEquals(4500,userRewardsService.getUserRewardsPointsSum(user.getUserId()));
 	}
 	
+	
 }
