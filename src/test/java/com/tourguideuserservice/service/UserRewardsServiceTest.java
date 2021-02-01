@@ -52,7 +52,7 @@ class UserRewardsServiceTest {
 	
 	@BeforeEach
 	void setUp() {
-		userRewardsService.setRewardAwardingDistance(10);
+		userRewardsService.setRewardingDistance(10);
 		user = new User();
 		user.setUserId(UUID.randomUUID());
 		

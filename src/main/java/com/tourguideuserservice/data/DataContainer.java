@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.tourguideuserservice.model.User;
@@ -15,10 +14,8 @@ import com.tourguideuserservice.model.User;
 public class DataContainer {
 
 	private static DataInitializer dataInitializer ;
-	
 	public static Map<UUID, User> usersData;
 	
-
 	static {
 		usersData = new HashMap<UUID, User>();
 		dataInitializer = new DataInitializer();

@@ -11,13 +11,10 @@ import org.springframework.stereotype.Service;
 
 import com.tourguideuserservice.bean.AttractionBean;
 import com.tourguideuserservice.bean.VisitedLocationBean;
-
 import com.tourguideuserservice.model.User;
 import com.tourguideuserservice.model.UserReward;
 import com.tourguideuserservice.proxy.LocationProxy;
 import com.tourguideuserservice.proxy.RewardsProxy;
-
-import feign.FeignException;
 
 @Service
 public class UserRewardsService {
@@ -34,14 +31,14 @@ public class UserRewardsService {
 	@Autowired
 	private UserVisitedLocationService userVisitedLocationService;
 
-	@Value("${rewardAwardingDistance}")
-	private int rewardAwardingDistance;
+	@Value("${rewardingDistance}")
+	private int rewardingDistance;
 
 	public UserRewardsService() {
 	}
 
-	public UserRewardsService(int rewardAwardingDistance) {
-		this.rewardAwardingDistance = rewardAwardingDistance;
+	public UserRewardsService(int rewardingDistance) {
+		this.rewardingDistance = rewardingDistance;
 	}
 
 	public int getUserRewardsPointsSum(UUID userId) {
@@ -83,15 +80,15 @@ public class UserRewardsService {
 	}
 
 	private boolean checkRewardAwardingDistance(double distance) {
-		return (distance < rewardAwardingDistance);
+		return (distance < rewardingDistance);
 	}
 
-	public int getRewardAwardingDistance() {
-		return rewardAwardingDistance;
+	public int getRewardingDistance() {
+		return rewardingDistance;
 	}
 
-	public void setRewardAwardingDistance(int rewardAwardingDistance) {
-		this.rewardAwardingDistance = rewardAwardingDistance;
+	public void setRewardingDistance(int rewardingDistance) {
+		this.rewardingDistance = rewardingDistance;
 	}
 
 }
