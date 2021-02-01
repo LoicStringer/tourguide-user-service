@@ -27,6 +27,12 @@ public class ExceptionsHandler extends ResponseEntityExceptionHandler {
 		return new ResponseEntity<ExceptionResponse>(exceptionResponse, getHttpStatusFromException(duplicateUserException));
 	}
 	
+	@ExceptionHandler(UserNotFoundException.class)
+	public ResponseEntity<ExceptionResponse> handleGpsUtilException(UserNotFoundException userNotFoundException) {
+		ExceptionResponse exceptionResponse = buildExceptionResponse(userNotFoundException);
+		return new ResponseEntity<ExceptionResponse>(exceptionResponse, getHttpStatusFromException(userNotFoundException));
+	}
+	
 	private ExceptionResponse buildExceptionResponse(Exception ex) {
 		String statusCode = getStatusCodeFromException(ex);
 		ExceptionResponse exceptionResponse = new ExceptionResponse(LocalDateTime.now(), statusCode,
