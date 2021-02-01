@@ -8,12 +8,15 @@ import org.springframework.stereotype.Service;
 
 import com.tourguideuserservice.data.DataContainer;
 import com.tourguideuserservice.exception.DuplicateUserException;
+import com.tourguideuserservice.exception.UserNotFoundException;
 import com.tourguideuserservice.model.User;
 
 @Service
 public class UserService {
 
-	public User getUser(UUID userId) {
+	public User getUser(UUID userId) throws UserNotFoundException {
+		if(checkIfUserAlreadyRegistered(userId)==false)
+			throw new UserNotFoundException("This user id is not registered");
 		return DataContainer.usersData.get(userId);
 	}
 	

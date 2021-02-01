@@ -27,7 +27,6 @@ import com.tourguideuserservice.data.DataContainer;
 import com.tourguideuserservice.data.DataInitializer;
 import com.tourguideuserservice.exception.DuplicateUserException;
 import com.tourguideuserservice.model.User;
-import com.tourguideuserservice.service.UserService;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest

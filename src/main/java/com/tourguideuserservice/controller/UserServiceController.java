@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tourguideuserservice.exception.DuplicateUserException;
+import com.tourguideuserservice.exception.UserNotFoundException;
 import com.tourguideuserservice.model.User;
 import com.tourguideuserservice.service.UserService;
 
@@ -27,7 +28,7 @@ public class UserServiceController {
 	}
 	
 	@GetMapping("/users/{id}")
-	public ResponseEntity<User> getUser(@PathVariable UUID id){
+	public ResponseEntity<User> getUser(@PathVariable UUID id) throws UserNotFoundException{
 		return ResponseEntity.ok(userService.getUser(id));
 	}
 		

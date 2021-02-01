@@ -1,12 +1,12 @@
 package com.tourguideuserservice.integration;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.ArgumentMatchers.any;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,12 +29,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tourguideuserservice.bean.ProviderBean;
 import com.tourguideuserservice.data.DataContainer;
 import com.tourguideuserservice.dto.TripPricerDto;
-import com.tourguideuserservice.exception.TripDealsProxyException;
 import com.tourguideuserservice.form.UserTripPreferencesForm;
 import com.tourguideuserservice.model.User;
 import com.tourguideuserservice.proxy.TripDealsProxy;
-
-import feign.FeignException;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
@@ -93,15 +90,5 @@ class UserTripDealsServiceTestIT {
 
 		assertTrue(resultContent.contains("Belleville FairyTail"));
 	}
-	/*
-	@Test
-	void isExpectedExceptionThrownWhenTripDealsProxyFailTest() throws Exception {
-		
-		when(tripDealsProxy.getTripDeals(any(TripPricerDto.class))).thenThrow(TripDealsProxyException.class);
-		
-		mockMvc.perform(get("/users/" + user.getUserId() + "/trip-deals"))
-				.andExpect(status().is4xxClientError())
-				.andExpect(result-> assertTrue(result.getResolvedException() instanceof TripDealsProxyException));
-	}
-	*/
+
 }

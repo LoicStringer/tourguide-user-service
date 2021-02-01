@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
+import com.tourguideuserservice.exception.UserNotFoundException;
 import com.tourguideuserservice.model.UserReward;
 import com.tourguideuserservice.service.UserRewardsService;
 
@@ -21,12 +21,12 @@ public class UserRewardController {
 	private UserRewardsService userRewardsService;
 	
 	@PostMapping("/users/{userId}/rewards/latest")
-	public ResponseEntity<UserReward> addUserReward (@PathVariable UUID userId) {
+	public ResponseEntity<UserReward> addUserReward (@PathVariable UUID userId) throws UserNotFoundException {
 		return ResponseEntity.ok(userRewardsService.addUserReward(userId));
 	}
 	
 	@GetMapping("/users/{userId}/rewards")
-	public ResponseEntity<List<UserReward>> getUserRewardsList(@PathVariable UUID userId){
+	public ResponseEntity<List<UserReward>> getUserRewardsList(@PathVariable UUID userId) throws UserNotFoundException{
 		return ResponseEntity.ok(userRewardsService.getUserRewardsList(userId));
 	}
 	

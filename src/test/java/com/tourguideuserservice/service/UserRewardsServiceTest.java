@@ -19,6 +19,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import com.tourguideuserservice.bean.AttractionBean;
 import com.tourguideuserservice.bean.LocationBean;
 import com.tourguideuserservice.bean.VisitedLocationBean;
+import com.tourguideuserservice.exception.UserNotFoundException;
 import com.tourguideuserservice.model.User;
 import com.tourguideuserservice.model.UserReward;
 import com.tourguideuserservice.proxy.LocationProxy;
@@ -51,7 +52,7 @@ class UserRewardsServiceTest {
 	private AttractionBean attractionAround;
 	
 	@BeforeEach
-	void setUp() {
+	void setUp() throws UserNotFoundException {
 		userRewardsService.setRewardingDistance(10);
 		user = new User();
 		user.setUserId(UUID.randomUUID());
@@ -78,17 +79,17 @@ class UserRewardsServiceTest {
 	}
 	
 	@Test
-	void getUserRewardsPointsSumTest() {
+	void getUserRewardsPointsSumTest() throws UserNotFoundException {
 		assertEquals(1500,userRewardsService.getUserRewardsPointsSum(user.getUserId()));
 	}
 
 	@Test
-	void getUserRewardsListTest() {
+	void getUserRewardsListTest() throws UserNotFoundException {
 		assertEquals(user.getUserRewardsList().get(0),userRewardsService.getUserRewardsList(user.getUserId()).get(0));
 	}
 	
 	@Test
-	void addUserRewardTest()  {
+	void addUserRewardTest() throws UserNotFoundException  {
 		when(userVisitedLocationService.getUserLastVisitedLocation(user)).thenReturn(userLocation);
 		when(locationProxy.getDistancesToAttractions(userLocation.getLocation())).thenReturn(distancesToAttractions);
 		when(rewxardProxy.getAttractionRewardPoints(user.getUserId(),attractionAround.getAttractionId())).thenReturn(3000);

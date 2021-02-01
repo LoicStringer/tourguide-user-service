@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import com.tourguideuserservice.data.DataContainer;
 import com.tourguideuserservice.exception.DuplicateUserException;
+import com.tourguideuserservice.exception.UserNotFoundException;
 import com.tourguideuserservice.model.User;
 
 class UserServiceTest {
@@ -36,7 +37,7 @@ class UserServiceTest {
 	}
 	
 	@Test
-	void getUseTest() {
+	void getUseTest() throws UserNotFoundException {
 		assertEquals("Tony",userService.getUser(user.getUserId()).getUserName());
 	}
 

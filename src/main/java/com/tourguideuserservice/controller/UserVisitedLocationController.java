@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tourguideuserservice.bean.LocationBean;
 import com.tourguideuserservice.bean.VisitedLocationBean;
+import com.tourguideuserservice.exception.UserNotFoundException;
 import com.tourguideuserservice.model.User;
 import com.tourguideuserservice.service.UserService;
 import com.tourguideuserservice.service.UserVisitedLocationService;
@@ -27,12 +28,12 @@ public class UserVisitedLocationController {
 	private UserService userService;
 	
 	@GetMapping("users/{userId}/visited-locations/latest")
-	public ResponseEntity<VisitedLocationBean> getLatestVisitedLocation(@PathVariable UUID userId){
+	public ResponseEntity<VisitedLocationBean> getLatestVisitedLocation(@PathVariable UUID userId) throws UserNotFoundException{
 		return ResponseEntity.ok(userVisitedLocationService.getUserLastVisitedLocation(userService.getUser(userId)));
 	}
 	
 	@PostMapping("/users/{userId}/visited-locations")
-	public ResponseEntity<VisitedLocationBean> addUserVisitedLocation (@PathVariable UUID userId, @RequestBody VisitedLocationBean visitedLocation){
+	public ResponseEntity<VisitedLocationBean> addUserVisitedLocation (@PathVariable UUID userId, @RequestBody VisitedLocationBean visitedLocation) throws UserNotFoundException{
 		User user = userService.getUser(userId);
 		return ResponseEntity.ok(userVisitedLocationService.addUserVisitedLocation(visitedLocation, user));
 	}

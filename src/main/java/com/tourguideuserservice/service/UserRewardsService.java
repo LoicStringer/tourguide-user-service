@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.tourguideuserservice.bean.AttractionBean;
 import com.tourguideuserservice.bean.VisitedLocationBean;
+import com.tourguideuserservice.exception.UserNotFoundException;
 import com.tourguideuserservice.model.User;
 import com.tourguideuserservice.model.UserReward;
 import com.tourguideuserservice.proxy.LocationProxy;
@@ -41,16 +42,16 @@ public class UserRewardsService {
 		this.rewardingDistance = rewardingDistance;
 	}
 
-	public int getUserRewardsPointsSum(UUID userId) {
+	public int getUserRewardsPointsSum(UUID userId) throws UserNotFoundException {
 		return userService.getUser(userId).getUserRewardsList().parallelStream()
 				.mapToInt(ur -> ur.getRewardCentralPoints()).sum();
 	}
 
-	public List<UserReward> getUserRewardsList(UUID userId) {
+	public List<UserReward> getUserRewardsList(UUID userId) throws UserNotFoundException {
 		return userService.getUser(userId).getUserRewardsList();
 	}
 
-	public UserReward addUserReward(UUID userId) {
+	public UserReward addUserReward(UUID userId) throws UserNotFoundException {
 		UserReward userRewardToAdd = new UserReward();
 		User userToReward = userService.getUser(userId);
 		List<AttractionBean> visitedAttractionsList = getVisitedAttractionsList(userToReward);

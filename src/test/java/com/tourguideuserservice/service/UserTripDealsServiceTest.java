@@ -1,7 +1,6 @@
 package com.tourguideuserservice.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -19,14 +18,12 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.tourguideuserservice.bean.ProviderBean;
 import com.tourguideuserservice.dto.TripPricerDto;
-import com.tourguideuserservice.exception.TripDealsProxyException;
+import com.tourguideuserservice.exception.UserNotFoundException;
 import com.tourguideuserservice.form.UserTripPreferencesForm;
 import com.tourguideuserservice.mapper.UserTripPreferencesMapper;
 import com.tourguideuserservice.model.User;
 import com.tourguideuserservice.model.UserTripPreferences;
 import com.tourguideuserservice.proxy.TripDealsProxy;
-
-import feign.FeignException;
 
 @ExtendWith(MockitoExtension.class)
 class UserTripDealsServiceTest {
@@ -55,12 +52,12 @@ class UserTripDealsServiceTest {
 	}
 	
 	@BeforeEach
-	void setUpForTests() {
+	void setUpForTests() throws UserNotFoundException {
 		when(userService.getUser(user.getUserId())).thenReturn(user);
 	}
 
 	@Test
-	void addUserTripPreferencesTest() {
+	void addUserTripPreferencesTest() throws UserNotFoundException {
 		UserTripPreferencesForm userTripPreferencesForm = new UserTripPreferencesForm();
 		userTripPreferencesForm.setTripDuration(3);
 		UserTripPreferences userTripPreferences = new UserTripPreferences();
@@ -74,7 +71,7 @@ class UserTripDealsServiceTest {
 	}
 
 	@Test
-	void getTripDealsTest() throws TripDealsProxyException {
+	void getTripDealsTest() throws UserNotFoundException {
 		List<ProviderBean> tripDealsList = new ArrayList<ProviderBean>();
 		ProviderBean providerBean = new ProviderBean();
 		ProviderBean providerBeanBis = new ProviderBean();
@@ -89,10 +86,4 @@ class UserTripDealsServiceTest {
 		assertEquals("Belleville FairyTail", user.getTripDealsList().get(0).getProviderName());
 	}
 	
-	@Test
-	void isExpectedExceptionThrownWhenUnableToRetrieveTripDealsListTest() {
-	
-		when(tripDealsProxy.getTripDeals(any(TripPricerDto.class))).thenThrow(FeignException.class);
-		assertThrows(TripDealsProxyException.class,()->userTripDealsService.getTripDeals(user.getUserId()));
-	}
 }
