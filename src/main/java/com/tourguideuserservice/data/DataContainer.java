@@ -21,6 +21,7 @@ public class DataContainer {
 		dataInitializer = new DataInitializer();
 		dataInitializer.initializeTestsUsers(100);
 		System.out.println(usersData.entrySet().stream().findFirst().get().getKey());
+	
 	}
 
 	public static void clearUsersData() {

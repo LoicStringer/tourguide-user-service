@@ -18,7 +18,7 @@ import com.tourguideuserservice.model.User;
 @Component
 public class DataInitializer {
 	
-	private Logger logger = LoggerFactory.getLogger(DataInitializer.class);
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	public void initializeTestsUsers(int testUserNumber) {
 		IntStream.range(0, testUserNumber).forEach(i -> {
