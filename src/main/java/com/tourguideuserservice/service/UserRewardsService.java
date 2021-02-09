@@ -5,6 +5,8 @@ import java.util.TreeMap;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -20,6 +22,8 @@ import com.tourguideuserservice.proxy.RewardsProxy;
 @Service
 public class UserRewardsService {
 
+	private Logger log = LoggerFactory.getLogger(this.getClass());
+	
 	@Autowired
 	private LocationProxy locationProxy;
 
@@ -43,6 +47,7 @@ public class UserRewardsService {
 	}
 
 	public int getUserRewardsPointsSum(UUID userId) throws UserNotFoundException {
+		log.debug("Sum up recorded reward points for user "+userId);
 		return userService.getUser(userId).getUserRewardsList().parallelStream()
 				.mapToInt(ur -> ur.getRewardCentralPoints()).sum();
 	}
@@ -52,11 +57,15 @@ public class UserRewardsService {
 	}
 
 	public UserReward addUserReward(UUID userId) throws UserNotFoundException {
+		log.debug("Generating and recording the potential user reward for user "+userId+System.lineSeparator()
+		+" according to the predifined awarding distance between latest location and attractions.");
+		
 		UserReward userRewardToAdd = new UserReward();
 		User userToReward = userService.getUser(userId);
 		List<AttractionBean> visitedAttractionsList = getVisitedAttractionsList(userToReward);
 		VisitedLocationBean userLocation = userVisitedLocationService.getUserLastVisitedLocation(userToReward);
 		TreeMap<Double, AttractionBean> distancesToAttractionsMap;
+		
 		distancesToAttractionsMap = locationProxy.getDistancesToAttractions(userLocation.getLocation());
 		distancesToAttractionsMap.entrySet().parallelStream().filter(
 				e -> checkRewardAwardingDistance(e.getKey()) && !visitedAttractionsList.contains(e.getValue()))
@@ -66,6 +75,7 @@ public class UserRewardsService {
 					userRewardToAdd.setRewardCentralPoints(rewardsProxy.getAttractionRewardPoints(userId, e.getValue().getAttractionId()));
 					addUserReward(userToReward, userRewardToAdd);
 				});
+
 		return userRewardToAdd;
 	}
 

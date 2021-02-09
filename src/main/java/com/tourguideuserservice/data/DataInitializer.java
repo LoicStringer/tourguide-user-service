@@ -18,7 +18,7 @@ import com.tourguideuserservice.model.User;
 @Component
 public class DataInitializer {
 	
-	private Logger logger = LoggerFactory.getLogger(this.getClass());
+	private Logger log = LoggerFactory.getLogger(this.getClass());
 	
 	public void initializeTestsUsers(int testUserNumber) {
 		IntStream.range(0, testUserNumber).forEach(i -> {
@@ -29,7 +29,7 @@ public class DataInitializer {
 			generateUserLocationHistory(user);
 			DataContainer.usersData.put(user.getUserId(), user);
 		});
-		logger.debug("Created " + testUserNumber + " test users.");
+		log.debug("Created " + testUserNumber + " test users.");
 	}
 
 	private void generateUserLocationHistory(User user) {

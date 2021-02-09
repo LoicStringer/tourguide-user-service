@@ -3,6 +3,8 @@ package com.tourguideuserservice.service;
 import java.util.List;
 import java.util.UUID;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +20,8 @@ import com.tourguideuserservice.proxy.TripDealsProxy;
 @Service
 public class UserTripDealsService {
 
+	private Logger log = LoggerFactory.getLogger(this.getClass());
+	
 	@Autowired
 	private TripDealsProxy tripDealsProxy;
 
@@ -31,6 +35,7 @@ public class UserTripDealsService {
 	private UserTripPreferencesMapper userTripPreferencesMapper;
 
 	public UserTripPreferences addUserTripPreferences(UUID userId, UserTripPreferencesForm userTripPreferencesForm) throws UserNotFoundException {
+		log.debug("Converting user trip preferences form to object and saving it to user "+userId);
 		UserTripPreferences userTripPreferences = userTripPreferencesMapper
 				.mapUserTripPreferencesFormToModel(userTripPreferencesForm);
 		userService.getUser(userId).setPreferences(userTripPreferences);
@@ -38,6 +43,8 @@ public class UserTripDealsService {
 	}
 
 	public List<ProviderBean> getTripDeals(UUID userId) throws UserNotFoundException  {
+		log.debug("Converting user trip preferences bean to dto and querying Trip Pricer API"
+				+System.lineSeparator()+"to get a trip deals list for user "+userId);
 		TripPricerDto tripPricerDto = buildTripPricerDto(userId);
 		List<ProviderBean> tripDealsList;
 		tripDealsList = tripDealsProxy.getTripDeals(tripPricerDto);

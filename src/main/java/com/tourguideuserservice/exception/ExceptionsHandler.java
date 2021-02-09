@@ -17,20 +17,29 @@ public class ExceptionsHandler extends ResponseEntityExceptionHandler {
 
 	@ExceptionHandler(FeignException.class)
 	public ResponseEntity<ExceptionResponse> handleFeignException(FeignException feignException) {
-		ExceptionResponse exceptionResponse = buildExceptionResponse(feignException);
+		ExceptionResponse exceptionResponse = buildFeignExceptionResponse(feignException);
 		return new ResponseEntity<ExceptionResponse>(exceptionResponse, getHttpStatusFromException(feignException));
 	}
 	
-	@ExceptionHandler(DuplicateUserException.class)
-	public ResponseEntity<ExceptionResponse> handleGpsUtilException(DuplicateUserException duplicateUserException) {
-		ExceptionResponse exceptionResponse = buildExceptionResponse(duplicateUserException);
-		return new ResponseEntity<ExceptionResponse>(exceptionResponse, getHttpStatusFromException(duplicateUserException));
+	@ExceptionHandler(DuplicatedUserException.class)
+	public ResponseEntity<ExceptionResponse> handleGpsUtilException(DuplicatedUserException duplicatedUserException) {
+		ExceptionResponse exceptionResponse = buildExceptionResponse(duplicatedUserException);
+		return new ResponseEntity<ExceptionResponse>(exceptionResponse, getHttpStatusFromException(duplicatedUserException));
 	}
 	
 	@ExceptionHandler(UserNotFoundException.class)
 	public ResponseEntity<ExceptionResponse> handleGpsUtilException(UserNotFoundException userNotFoundException) {
 		ExceptionResponse exceptionResponse = buildExceptionResponse(userNotFoundException);
 		return new ResponseEntity<ExceptionResponse>(exceptionResponse, getHttpStatusFromException(userNotFoundException));
+	}
+	
+	private ExceptionResponse buildFeignExceptionResponse(FeignException fEx) {
+		int statusCode = fEx.status();
+		HttpStatus status = HttpStatus.valueOf(statusCode);
+		String feignExceptionStatus = status.toString();
+		ExceptionResponse exceptionResponse = new ExceptionResponse(LocalDateTime.now(), feignExceptionStatus,
+				fEx.getCause().toString(), fEx.getMessage());
+		return exceptionResponse;
 	}
 	
 	private ExceptionResponse buildExceptionResponse(Exception ex) {

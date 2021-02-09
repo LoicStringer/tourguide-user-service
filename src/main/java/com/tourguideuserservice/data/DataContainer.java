@@ -20,8 +20,6 @@ public class DataContainer {
 		usersData = new HashMap<UUID, User>();
 		dataInitializer = new DataInitializer();
 		dataInitializer.initializeTestsUsers(100);
-		System.out.println(usersData.entrySet().stream().findFirst().get().getKey());
-	
 	}
 
 	public static void clearUsersData() {

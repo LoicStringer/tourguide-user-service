@@ -3,14 +3,13 @@ package com.tourguideuserservice.proxy;
 import java.util.List;
 
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.tourguideuserservice.bean.ProviderBean;
 import com.tourguideuserservice.dto.TripPricerDto;
 
-@FeignClient(name = "tourguide-tripdeals-service", url= "localhost:9002")
+@FeignClient(name = "${feign.client.tripdeals.name}", url= "${feign.client.tripdeals.url}")
 public interface TripDealsProxy {
 
 	@PostMapping("/trip-deals")

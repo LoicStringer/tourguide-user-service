@@ -25,7 +25,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tourguideuserservice.data.DataContainer;
 import com.tourguideuserservice.data.DataInitializer;
-import com.tourguideuserservice.exception.DuplicateUserException;
+import com.tourguideuserservice.exception.DuplicatedUserException;
 import com.tourguideuserservice.model.User;
 
 @ExtendWith(SpringExtension.class)
@@ -92,6 +92,6 @@ class UserServiceTestIT {
 				.content(objectMapper.writeValueAsString(userTest))
 				.contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().is3xxRedirection())
-				.andExpect(result -> assertTrue(result.getResolvedException() instanceof DuplicateUserException));
+				.andExpect(result -> assertTrue(result.getResolvedException() instanceof DuplicatedUserException));
 	}
 }

@@ -12,7 +12,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.tourguideuserservice.data.DataContainer;
-import com.tourguideuserservice.exception.DuplicateUserException;
+import com.tourguideuserservice.exception.DuplicatedUserException;
 import com.tourguideuserservice.exception.UserNotFoundException;
 import com.tourguideuserservice.model.User;
 
@@ -49,7 +49,7 @@ class UserServiceTest {
 	}
 	
 	@Test
-	void addUserTest() throws DuplicateUserException {
+	void addUserTest() throws DuplicatedUserException {
 		User userTer = new User(UUID.randomUUID(),"Vincent","0608101214","vincent.hanna@heat.com");
 		assertEquals("Vincent",userService.addUser(userTer).getUserName());
 		assertEquals(userTer,DataContainer.usersData.get(userTer.getUserId()));
@@ -63,7 +63,7 @@ class UserServiceTest {
 	
 	@Test
 	void isExpectedExceptionThrownWhenAddingAlreadyRegisteredUserTest() {
-		assertThrows(DuplicateUserException.class,()->userService.addUser(user));
+		assertThrows(DuplicatedUserException.class,()->userService.addUser(user));
 	}
 	
 	@Test
