@@ -20,7 +20,7 @@ import com.tourguideuserservice.data.DataContainer;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-class PerformanceTestIT {
+class PerformanceTestControllerTestIT {
 
 	@Autowired
 	private MockMvc mockMvc;
@@ -29,7 +29,7 @@ class PerformanceTestIT {
 	private ObjectMapper objectMapper;
 	
 	@Test
-	void performanceTestIntegrationtest() throws JsonProcessingException, Exception {
+	void performanceTestControllerIntegrationTest() throws JsonProcessingException, Exception {
 		
 		int userNumber = 10;
 		

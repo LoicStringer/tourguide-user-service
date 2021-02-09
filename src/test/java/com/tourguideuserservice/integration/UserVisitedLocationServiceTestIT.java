@@ -56,7 +56,7 @@ class UserVisitedLocationServiceTestIT {
 	@Test
 	void addVisitedLocationTest() throws JsonProcessingException, Exception {
 		
-		mockMvc.perform(post("/users/"+user.getUserId()+"/visited-locations")
+		mockMvc.perform(post("/users/"+user.getUserId()+"/locations")
 				.content(objectMapper.writeValueAsString(visitedLocationBean))
 				.contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk());
@@ -70,7 +70,7 @@ class UserVisitedLocationServiceTestIT {
 		
 		user.getVisitedLocationsList().add(visitedLocationBean);
 		
-		mockMvc.perform(get("/users/"+user.getUserId()+"/visited-locations/latest"))
+		mockMvc.perform(get("/users/"+user.getUserId()+"/locations/latest"))
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$.location.latitude").value(48.80));
 	}
@@ -83,7 +83,7 @@ class UserVisitedLocationServiceTestIT {
 		user.getVisitedLocationsList().add(visitedLocationBean);
 		String userId = user.getUserId().toString();
 		
-		mockMvc.perform(get("/users/visited-locations/latest"))
+		mockMvc.perform(get("/users/locations/latest"))
 		.andExpect(status().isOk())
 		.andExpect(jsonPath("$.length()").value(10))
 		.andExpect(jsonPath("$."+userId+".latitude").value(48.80));
