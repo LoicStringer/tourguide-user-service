@@ -13,7 +13,7 @@ import com.tourguideuserservice.bean.AttractionBean;
 import com.tourguideuserservice.bean.LocationBean;
 import com.tourguideuserservice.bean.VisitedLocationBean;
 
-@FeignClient(name = "${feign.client.location.name}", url="${feign.client.location.url}")
+@FeignClient(name = "tourguide-location-service", url="localhost:9004")
 public interface LocationProxy {
 	
 	@PostMapping("/attractions/distances")
