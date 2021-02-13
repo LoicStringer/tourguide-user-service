@@ -31,12 +31,6 @@ public class UserVisitedLocationController {
 	@Autowired
 	private UserService userService;
 	
-	@GetMapping("users/{userId}/locations/latest")
-	public ResponseEntity<VisitedLocationBean> getLatestVisitedLocation(@PathVariable UUID userId) throws UserNotFoundException{
-		log.info("Retrieving the latest registered user location for user "+userId);
-		return ResponseEntity.ok(userVisitedLocationService.getUserLastVisitedLocation(userService.getUser(userId)));
-	}
-	
 	@PostMapping("/users/{userId}/locations")
 	public ResponseEntity<VisitedLocationBean> addUserVisitedLocation (@PathVariable UUID userId, @RequestBody VisitedLocationBean visitedLocation) throws UserNotFoundException{
 		log.info("Recording the actual user "+userId+" location to his locations history.");
