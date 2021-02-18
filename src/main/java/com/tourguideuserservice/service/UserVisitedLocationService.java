@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.tourguideuserservice.bean.LocationBean;
 import com.tourguideuserservice.bean.VisitedLocationBean;
 import com.tourguideuserservice.data.DataContainer;
+import com.tourguideuserservice.exception.UserNotFoundException;
 import com.tourguideuserservice.model.User;
 import com.tourguideuserservice.proxy.LocationProxy;
 
@@ -21,9 +22,13 @@ public class UserVisitedLocationService {
 	private Logger log = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
+	private UserService userService;
+	
+	@Autowired
 	private LocationProxy locationProxy;
 
-	public VisitedLocationBean addUserVisitedLocation(VisitedLocationBean visitedLocation, User user) {
+	public VisitedLocationBean addUserVisitedLocation(VisitedLocationBean visitedLocation, UUID userId) throws UserNotFoundException {
+		User user = userService.getUser(userId);
 		log.debug("Recording latest " + user.getUserName() + " location to his location history.");
 		user.getVisitedLocationsList().add(visitedLocation);
 		return visitedLocation;

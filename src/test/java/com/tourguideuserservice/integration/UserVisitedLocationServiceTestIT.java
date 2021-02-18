@@ -66,16 +66,6 @@ class UserVisitedLocationServiceTestIT {
 	}
 
 	@Test
-	void getUserLastVisitedLocationTest() throws Exception {
-		
-		user.getVisitedLocationsList().add(visitedLocationBean);
-		
-		mockMvc.perform(get("/users/"+user.getUserId()+"/locations/latest"))
-				.andExpect(status().isOk())
-				.andExpect(jsonPath("$.location.latitude").value(48.80));
-	}
-	
-	@Test
 	void getAllUsersLastLocationTest() throws Exception {
 		DataContainer.clearUsersData();
 		dataInitializer.initializeTestsUsers(9);

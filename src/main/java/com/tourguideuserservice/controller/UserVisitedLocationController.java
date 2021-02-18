@@ -16,8 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tourguideuserservice.bean.LocationBean;
 import com.tourguideuserservice.bean.VisitedLocationBean;
 import com.tourguideuserservice.exception.UserNotFoundException;
-import com.tourguideuserservice.model.User;
-import com.tourguideuserservice.service.UserService;
 import com.tourguideuserservice.service.UserVisitedLocationService;
 
 @RestController
@@ -28,20 +26,10 @@ public class UserVisitedLocationController {
 	@Autowired
 	private UserVisitedLocationService userVisitedLocationService;
 	
-	@Autowired
-	private UserService userService;
-	
-	@GetMapping("users/{userId}/locations/latest")
-	public ResponseEntity<VisitedLocationBean> getLatestVisitedLocation(@PathVariable UUID userId) throws UserNotFoundException{
-		log.info("Retrieving the latest registered user location for user "+userId);
-		return ResponseEntity.ok(userVisitedLocationService.getUserLastVisitedLocation(userService.getUser(userId)));
-	}
-	
 	@PostMapping("/users/{userId}/locations")
 	public ResponseEntity<VisitedLocationBean> addUserVisitedLocation (@PathVariable UUID userId, @RequestBody VisitedLocationBean visitedLocation) throws UserNotFoundException{
 		log.info("Recording the actual user "+userId+" location to his locations history.");
-		User user = userService.getUser(userId);
-		return ResponseEntity.ok(userVisitedLocationService.addUserVisitedLocation(visitedLocation, user));
+		return ResponseEntity.ok(userVisitedLocationService.addUserVisitedLocation(visitedLocation, userId));
 	}
 	
 	@GetMapping("/users/locations/latest")

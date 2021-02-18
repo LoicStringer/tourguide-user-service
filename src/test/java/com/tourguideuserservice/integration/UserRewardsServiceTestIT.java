@@ -3,7 +3,6 @@ package com.tourguideuserservice.integration;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -68,7 +67,7 @@ class UserRewardsServiceTestIT {
 		when(locationProxy.getDistancesToAttractions(userLocation.getLocation())).thenReturn(distancesToAttractionsMap);
 		when(rewardsProxy.getAttractionRewardPoints(userToReward.getUserId(), attractionAround.getAttractionId())).thenReturn(5000);
 		
-		mockMvc.perform(post("/users/"+userToReward.getUserId()+"/rewards/latest"))
+		mockMvc.perform(get("/users/"+userToReward.getUserId()+"/rewards/latest"))
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$.rewardCentralPoints").value(5000))
 				.andExpect(jsonPath("$.visitedLocationBean.userId").value(userToReward.getUserId().toString()))
