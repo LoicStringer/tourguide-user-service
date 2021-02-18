@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import com.tourguideuserservice.bean.LocationBean;
 import com.tourguideuserservice.bean.VisitedLocationBean;
 import com.tourguideuserservice.data.DataContainer;
+import com.tourguideuserservice.exception.UserNotFoundException;
 import com.tourguideuserservice.model.User;
 
 class UserVisitedLocationServiceTest {
@@ -36,8 +37,8 @@ class UserVisitedLocationServiceTest {
 	}
 	
 	@Test
-	void addUserVisitedLocationTest() {
-		assertEquals(locationBean,userVisitedLocationService.addUserVisitedLocation(visitedLocationBean, user).getLocation());
+	void addUserVisitedLocationTest() throws UserNotFoundException {
+		assertEquals(locationBean,userVisitedLocationService.addUserVisitedLocation(visitedLocationBean, user.getUserId()).getLocation());
 		assertEquals(visitedLocationBean,user.getVisitedLocationsList().get(0));
 	}
 

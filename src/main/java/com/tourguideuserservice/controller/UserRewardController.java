@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tourguideuserservice.exception.UserNotFoundException;
@@ -24,7 +23,7 @@ public class UserRewardController {
 	@Autowired
 	private UserRewardsService userRewardsService;
 	
-	@PostMapping("/users/{userId}/rewards/latest")
+	@GetMapping("/users/{userId}/rewards/latest")
 	public ResponseEntity<UserReward> addUserReward (@PathVariable UUID userId) throws UserNotFoundException {
 		log.info("Adding reward to user "+userId);
 		return ResponseEntity.ok(userRewardsService.addUserReward(userId));
