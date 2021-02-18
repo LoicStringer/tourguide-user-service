@@ -27,6 +27,8 @@ public class DataInitializer {
 			String email = userName + "@tourGuide.com";
 			User user = new User(UUID.randomUUID(), userName, phone, email);
 			generateUserLocationHistory(user);
+			user.getVisitedLocationsList().add(new VisitedLocationBean(user.getUserId(),
+					new LocationBean(40.852905, -73.872971), getRandomTime()));
 			DataContainer.usersData.put(user.getUserId(), user);
 		});
 		log.debug("Created " + testUserNumber + " test users.");

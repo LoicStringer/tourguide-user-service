@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import com.tourguideuserservice.bean.ProviderBean;
 import com.tourguideuserservice.dto.TripPricerDto;
 
-@FeignClient(name = "${feign.client.tripdeals.name}", url= "${feign.client.tripdeals.url}")
+@FeignClient(name = "${feignClient.tripdealsSservice.name}", url= "${feignClient.tripDealsService.url}")
 public interface TripDealsProxy {
 
 	@PostMapping("/trip-deals")
